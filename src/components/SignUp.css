@@ -1,46 +1,48 @@
-.login-container {
+.signup-container {
   max-width: 400px;
   margin: 80px auto;
   padding: 30px;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.4s ease-in;
+  animation: slideIn 0.4s ease-in;
 }
 
-.login-container h2 {
+.signup-container h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #185a9d;
+  color: #ff416c; /* Pinkish red matching navbar */
 }
 
-.login-container form {
+.signup-container form {
   display: flex;
   flex-direction: column;
 }
 
-.login-container input {
+.signup-container input {
   padding: 12px;
   margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-.login-container button {
+.signup-container button {
   padding: 12px;
-  background: #185a9d;
+  background: linear-gradient(to right, #ff416c, #ff4b2b); /* Same as navbar */
   color: white;
   font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
-.login-container button:hover {
-  background: #1471c2;
+.signup-container button:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
 }
 
-@keyframes fadeIn {
+@keyframes slideIn {
   from {
     opacity: 0;
     transform: translateY(20px);
