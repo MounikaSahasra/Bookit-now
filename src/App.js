@@ -1,8 +1,13 @@
-import './App.css';
+import React from 'react';
+import Navbar from './components/navbar.jsx';
+import Landing from './components/landing.jsx';
 
 function App() {
   return (
-  <div>hello world</div>
+    <>
+      <Navbar />
+      <Landing />
+    </>
   );
 }
 
