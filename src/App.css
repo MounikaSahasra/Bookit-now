@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #43cea2, #185a9d);
+  padding: 60px 20px;
+}
+
+.action-btn {
+  margin: 10px;
+  padding: 12px 24px;
+  background-color: #fff;
+  color: #185a9d;
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid #185a9d;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #185a9d;
+  color: white;
+}
