@@ -15,8 +15,8 @@ function Navbar() {
         <a href="#">Contact Us</a>
         <a href="#">Enterprise</a>
         <a href="#">Pricing</a>
-        <Link to="/login">Login</Link>
-        <Link to="/signup" ><button className="signup-btn">Sign Up</button></Link>
+        
+        <Link to="/login" ><button className="signup-btn">LOGIN</button></Link>
       </nav>
     </header>
   );
