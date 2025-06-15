@@ -77,9 +77,10 @@ const Login = () => {
           <button type="button" onClick={(e) => handleLogin(e, 'user')}>
             Login as User
           </button>
-          <button type="button" onClick={(e) => handleLogin(e, 'admin')}>
+          <Link to="/AdminDashboard" ><button type="button" onClick={(e) => handleLogin(e, 'admin')}>
             Login as Admin
-          </button>
+          </button></Link>
+          
         </div>
       </form>
     </div>
