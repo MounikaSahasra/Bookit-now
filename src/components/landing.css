@@ -22,7 +22,7 @@
 
 
 .hero-text p {
-  font-size: 1.2 rem;
+  font-size: 1.2rem;
   margin-bottom: 1.5rem;
   color: #555;
 }
@@ -64,4 +64,66 @@
     margin-top: 0;
     padding-top: 0;
     font-size: 5.7rem;
+}
+/* 📱 Mobile Devices (max-width: 600px) */
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .hero-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .hero-image img {
+    height: 200px;
+    padding-top: 3rem;
+  }
+
+  #s2h1 {
+    font-size: 3.2rem;
+  }
+
+  #s2h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* 💻 Tablets (max-width: 900px) */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .hero-image img {
+    height: 240px;
+    padding-top: 5rem;
+  }
+
+  #s2h1 {
+    font-size: 4rem;
+  }
+
+  #s2h3 {
+    font-size: 1.6rem;
+  }
 }
