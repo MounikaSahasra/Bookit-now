@@ -1,21 +1,24 @@
 import React from "react";
 import './landing.css';
-import calendar from './assets/calendar.jpg'; 
+import calendar from './assets/calendar.png'; 
 import { Link } from 'react-router-dom';
 
 function Landing() {
   return (
     <>
     
+    
     <section className="hero">
-    <div>
-      <br />
-      <br />
-        <h3 id='s2h3'>Appointments</h3>
-        <h1 id='s2h1'>Simplify bookings <br /> and stay organized</h1>
-    </div>
-    <br />
-    <br />
+    <section className="hero first-hero">
+  <div className="first-text">
+    <h3 id="s2h3">Appointments</h3>
+    <h1 id="s2h1">
+      Simplify bookings <br /> and stay organized
+    </h1>
+  </div>
+</section>
+
+   
     
     
     </section>

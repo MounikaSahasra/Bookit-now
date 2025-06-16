@@ -22,3 +22,8 @@
   background-color: #185a9d;
   color: white;
 }
+.react-calendar__tile.unavailable-tile {
+  background-color: #ff4d4d !important;
+  color: white !important;
+  /* border-radius: 50%; */
+}

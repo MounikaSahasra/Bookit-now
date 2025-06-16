@@ -1,12 +1,45 @@
+/* Hero Section - First (Centered Text) */
+.hero.first-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background-color: #f5f8fc;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+/* Centered text block */
+.first-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Appointment subtitle */
+#s2h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Main headline */
+#s2h1 {
+  font-size: 5.2rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Hero Section - Second (Split layout) */
 .hero {
   display: flex;
   flex-wrap: wrap;
-  /* align-items: center; */
   justify-content: space-between;
   padding: 1rem 2rem;
   background-color: #f5f8fc;
 }
 
+/* Text content block */
 .hero-text {
   flex: 1;
   min-width: 300px;
@@ -18,8 +51,6 @@
   font-weight: 700;
   margin-bottom: 1rem;
 }
-
-
 
 .hero-text p {
   font-size: 1.2rem;
@@ -38,7 +69,7 @@
   margin-bottom: 1rem;
 }
 
-
+/* Right-side calendar image */
 .hero-image {
   flex: 1;
   text-align: center;
@@ -47,27 +78,15 @@
 }
 
 .hero-image img {
-  
-  height: 280px;
-  padding-top: 10rem;
+  height: 350px;
+  padding-bottom: 16rem;
   width: auto;
- 
 }
 
-#s2h3{
-  margin-top: 1;
-  padding-top: 0;
-    font-size: 2rem;
-
-}
-#s2h1 {
-    margin-top: 0;
-    padding-top: 0;
-    font-size: 5.7rem;
-}
-/* 📱 Mobile Devices (max-width: 600px) */
+/* Responsive: Mobile */
 @media (max-width: 600px) {
-  .hero {
+  .hero,
+  .hero.first-hero {
     flex-direction: column;
     align-items: center;
     padding: 1rem;
@@ -88,11 +107,6 @@
     font-size: 0.95rem;
   }
 
-  .hero-image img {
-    height: 200px;
-    padding-top: 3rem;
-  }
-
   #s2h1 {
     font-size: 3.2rem;
   }
@@ -102,7 +116,7 @@
   }
 }
 
-/* 💻 Tablets (max-width: 900px) */
+/* Responsive: Tablet */
 @media (max-width: 900px) {
   .hero {
     flex-direction: column;
@@ -114,16 +128,12 @@
     text-align: center;
   }
 
-  .hero-image img {
-    height: 240px;
-    padding-top: 5rem;
-  }
-
   #s2h1 {
-    font-size: 4rem;
+    font-size: 2.5rem;
+    line-height: 1.4;
   }
 
   #s2h3 {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 }
