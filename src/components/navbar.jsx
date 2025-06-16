@@ -10,7 +10,6 @@ function Navbar() {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // For mobile nav
 
   useEffect(() => {
     const auth = getAuth();
@@ -38,23 +37,17 @@ function Navbar() {
 
   return (
     <header className="navbar">
-      <div className="logo">
+      <Link to="/" className="logo">
         <span className="logo-icon">B</span>
         <span className="logo-text">Bookit Now</span>
-      </div>
+      </Link>
 
       {!isMinimal ? (
-        <>
-          <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-            ☰
-          </button>
-          <nav className={menuOpen ? 'active' : ''}>
-            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-            <Link to="/login" onClick={() => setMenuOpen(false)}>
-              <button className="signup-btn">LOGIN</button>
-            </Link>
-          </nav>
-        </>
+        <nav>
+          <Link to="/login">
+            <button className="signup-btn">LOGIN</button>
+          </Link>
+        </nav>
       ) : (
         <div className="user-badge-container">
           <div
