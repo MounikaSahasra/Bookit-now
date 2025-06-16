@@ -32,10 +32,6 @@ function Landing() {
 
 <ul style={{ listStyle: "none", paddingLeft: "0", lineHeight: "1.8" }}>
   <li>✅ <strong>Book 24/7</strong> – Let clients schedule even outside business hours!</li>
-  <li>⚡ <strong>Live availability</strong> – Show real-time slots and avoid double bookings.</li>
-  <li>🔁 <strong>Flexible scheduling</strong> – Set up recurring sessions, buffer times, and rules that fit your style.</li>
-  <li>💳 <strong>Automated payments</strong> – Collect fees seamlessly and securely.</li>
-  <li>🔔 <strong>Smart reminders</strong> – Reduce no-shows with automatic email/SMS alerts.</li>
   <li>📊 <strong>Manage it all</strong> – From calendars to customers, do everything from one dashboard.</li>
 </ul>
 

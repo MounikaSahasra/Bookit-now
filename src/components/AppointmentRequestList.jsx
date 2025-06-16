@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { db } from './firebase';
+import {
+  collection,
+  // getDocs,
+  updateDoc,
+  doc,
+  onSnapshot
+} from 'firebase/firestore';
 
 const AppointmentRequestList = () => {
-  const [requests, setRequests] = useState([
-    { id: 1, user: "Praveena", date: "2024-12-24", time: "10:00 AM", reason: "Project discussion", status: "Pending" },
-    { id: 2, user: "Aakash", date: "2024-12-25", time: "02:00 PM", reason: "Placement Query", status: "Pending" }
-  ]);
+  const [requests, setRequests] = useState([]);
 
-  const handleDecision = (id, decision) => {
-    const updated = requests.map((req) =>
-      req.id === id ? { ...req, status: decision } : req
-    );
-    setRequests(updated);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'appointments'), (snapshot) => {
+      const fetched = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRequests(fetched);
+    });
+
+    return () => unsubscribe(); // cleanup on unmount
+  }, []);
+
+  const handleDecision = async (id, decision) => {
+    const ref = doc(db, 'appointments', id);
+    await updateDoc(ref, { status: decision });
+    alert(`Appointment ${decision}`);
   };
 
   return (
@@ -20,16 +36,29 @@ const AppointmentRequestList = () => {
         {requests.map((req) => (
           <li key={req.id} className="request-item">
             <div>
-              <strong>{req.user}</strong> requested for {req.date} at {req.time}
+              <strong>{req.email}</strong> requested for {req.date} at {req.time}
               <br />
               Reason: {req.reason}
               <br />
-              Status: <span className={`status ${req.status.toLowerCase()}`}>{req.status}</span>
+              Status:{' '}
+              <span className={`status ${req.status.toLowerCase()}`}>
+                {req.status}
+              </span>
             </div>
-            {req.status === 'Pending' && (
+            {req.status === 'pending' && (
               <div className="action-buttons">
-                <button onClick={() => handleDecision(req.id, 'Approved')} className="approve-btn">Approve</button>
-                <button onClick={() => handleDecision(req.id, 'Rejected')} className="reject-btn">Reject</button>
+                <button
+                  onClick={() => handleDecision(req.id, 'approved')}
+                  className="approve-btn"
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() => handleDecision(req.id, 'rejected')}
+                  className="reject-btn"
+                >
+                  Reject
+                </button>
               </div>
             )}
           </li>
