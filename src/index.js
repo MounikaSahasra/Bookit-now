@@ -10,7 +10,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-    <UserDashboard />
-    <AdminDashboard />
+    
+    {/* <UserDashboard />
+    <AdminDashboard /> */}
   </React.StrictMode>
 );
