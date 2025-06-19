@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import { db } from './firebase';
+import 'react-calendar/dist/Calendar.css'; // External calendar styles
+
+import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import './Userdashboard.css'; // Ensure unavailable-tile class is included
+
+import '../Styles/UserDashboard.css'; // ✅ Corrected path & casing
 
 const AppointmentCalendar = ({ selectedDate, setSelectedDate }) => {
   const [unavailableDates, setUnavailableDates] = useState([]);
@@ -22,33 +24,27 @@ const AppointmentCalendar = ({ selectedDate, setSelectedDate }) => {
     fetchUnavailableDates();
   }, []);
 
-  const isSameDay = (date1, date2) => {
-    return (
-      date1.getFullYear() === date2.getFullYear() &&
-      date1.getMonth() === date2.getMonth() &&
-      date1.getDate() === date2.getDate()
-    );
-  };
+  const isSameDay = (d1, d2) =>
+    d1.getDate() === d2.getDate() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getFullYear() === d2.getFullYear();
 
   const handleDateChange = (date) => {
-    const isUnavailable = unavailableDates.some(d => isSameDay(d, date));
-    if (isUnavailable) {
-      alert("This date is unavailable. Please choose another one.");
+    if (unavailableDates.some(d => isSameDay(d, date))) {
+      alert("❌ This date is unavailable.");
     } else {
       setSelectedDate(date);
     }
   };
 
   return (
-    <div className="calendar-container">
-      <Calendar
-        onChange={handleDateChange}
-        value={selectedDate}
-        tileClassName={({ date }) =>
-          unavailableDates.some(d => isSameDay(d, date)) ? 'unavailable-tile' : ''
-        }
-      />
-    </div>
+    <Calendar
+      onChange={handleDateChange}
+      value={selectedDate}
+      tileClassName={({ date }) =>
+        unavailableDates.some(d => isSameDay(d, date)) ? 'unavailable-tile' : ''
+      }
+    />
   );
 };
 

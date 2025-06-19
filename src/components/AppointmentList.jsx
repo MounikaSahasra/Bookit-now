@@ -1,55 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from './firebase'; // Adjust path if needed
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase';
+import '../Styles/appointmentList.css'; // ✅ Ensure file exists or comment this line
 
 const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAppointments = async () => {
-      const user = auth.currentUser;
-      if (!user) {
-        alert("You must be logged in to view appointments.");
-        return;
-      }
+    const auth = getAuth();
 
-      try {
-        const q = query(
-          collection(db, 'appointments'),
-          where('uid', '==', user.uid)
-        );
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const appointmentsRef = collection(db, 'appointments');
 
-        const querySnapshot = await getDocs(q);
-        const fetchedAppointments = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        // ✅ Query: Get appointments of this user and listen in real-time
+        const q = query(appointmentsRef, where('userId', '==', user.uid));
 
-        setAppointments(fetchedAppointments);
+        const unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
+          const results = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setAppointments(results);
+          setLoading(false);
+        });
+
+        return () => unsubscribeSnapshot();
+      } else {
+        setAppointments([]);
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching appointments:', error);
-        alert('Failed to load appointments.');
       }
-    };
+    });
 
-    fetchAppointments();
+    return () => unsubscribe();
   }, []);
 
   return (
     <div className="appointment-list">
       <h3>Your Scheduled Appointments</h3>
-
       {loading ? (
-        <p>Loading...</p>
+        <p>⏳ Loading...</p>
       ) : appointments.length === 0 ? (
-        <p>No appointments found.</p>
+        <p>No appointments yet.</p>
       ) : (
         <ul>
           {appointments.map((apt) => (
             <li key={apt.id}>
-              📅 <strong>{apt.date}</strong> | ⏰ {apt.time} | 📝 {apt.reason} | 🔁 {apt.status}
+              <strong>📅 {apt.date}</strong> at <strong>{apt.time}</strong><br />
+              Service: {apt.service}<br />
+              Status:{' '}
+              <span className={`status ${apt.status}`}>
+                {apt.status}
+              </span>
             </li>
           ))}
         </ul>

@@ -1,0 +1,153 @@
+.admin-dashboard {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-dashboard h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+/* Admin Header Section */
+.admin-header {
+  background: linear-gradient(135deg, #3f51b5, #2196f3);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-header h1 {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.admin-header p {
+  font-size: 16px;
+  color: #e0e7ff;
+}
+
+/* Appointment Request List Styles */
+.appointment-request-list {
+  margin-top: 30px;
+}
+
+.appointment-request-list h3 {
+  color: #1f2937;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.appointment-request-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.request-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Status text color */
+.status.approved {
+  color: green;
+}
+
+.status.rejected {
+  color: red;
+}
+
+.status.pending {
+  color: orange;
+  font-weight: 500;
+}
+
+/* Approve/Reject Buttons */
+.action-buttons {
+  margin-top: 10px;
+}
+
+.approve-btn,
+.reject-btn {
+  margin: 5px 10px 0 0;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.approve-btn {
+  background-color: #16a34a;
+  color: white;
+}
+
+.reject-btn {
+  background-color: #dc2626;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #15803d;
+}
+
+.reject-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Unavailable Date Setter */
+.unavailable-date-setter {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.mark-unavailable-btn,
+.undo-unavailable-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.mark-unavailable-btn {
+  background-color: #0ea5e9;
+  color: white;
+}
+
+.undo-unavailable-btn {
+  background-color: #6b7280;
+  color: white;
+}
+
+.mark-unavailable-btn:hover {
+  background-color: #0284c7;
+}
+
+.undo-unavailable-btn:hover {
+  background-color: #4b5563;
+}
+
+/* Highlight tile in calendar */
+.unavailable-tile {
+  background-color: #f87171 !important;
+  color: white !important;
+  border-radius: 50%;
+}

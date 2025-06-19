@@ -1,122 +1,86 @@
-import React,{ useState, useEffect } from 'react';
-import AppointmentCalendar from './AppointmentCalendar';
-import './Userdashboard.css';
-
-import { db, auth } from './firebase';
-import {
-  collection,
-  addDoc,
-  Timestamp,
-  getDocs,
-  // query,
-  // where
-} from 'firebase/firestore';
+import React, { useState } from 'react';
+import { getAuth } from 'firebase/auth';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const AppointmentForm = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState('');
-  const [reason, setReason] = useState('');
-  const [unavailableDates, setUnavailableDates] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    date: '',
+    time: '',
+    service: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
 
-  const timeSlots = {
-    morning: ['9:00 AM', '9:30 AM', '10:00 AM', '11:00 AM'],
-    afternoon: ['1:00 PM', '2:00 PM', '3:00 PM'],
-    evening: ['4:00 PM', '5:00 PM', '6:00 PM'],
-  };
-
-  useEffect(() => {
-    const fetchUnavailableDates = async () => {
-      const snapshot = await getDocs(collection(db, 'unavailableDates'));
-      const dates = snapshot.docs.map((doc) => new Date(doc.data().date));
-      setUnavailableDates(dates);
-    };
-    fetchUnavailableDates();
-  }, []);
-
-  const isDateUnavailable = (date) => {
-    return unavailableDates.some(
-      (d) =>
-        d.getFullYear() === date.getFullYear() &&
-        d.getMonth() === date.getMonth() &&
-        d.getDate() === date.getDate()
-    );
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const auth = getAuth();
     const user = auth.currentUser;
-    if (!user) {
-      alert("⚠️ You must be logged in to book an appointment.");
-      return;
-    }
-
-    if (!selectedTime || !reason) {
-      alert("❗ Please select a time and enter a reason.");
-      return;
-    }
-
-    if (isDateUnavailable(selectedDate)) {
-      alert("❌ This date is unavailable. Please choose another date.");
-      return;
-    }
+    if (!user) return alert('Please log in to book an appointment.');
 
     try {
-      await addDoc(collection(db, "appointments"), {
-        uid: user.uid,
-        email: user.email,
-        date: selectedDate.toDateString(),
-        time: selectedTime,
-        reason: reason,
-        status: "pending",
-        createdAt: Timestamp.now()
+      setLoading(true);
+      await addDoc(collection(db, 'appointments'), {
+        ...formData,
+        userId: user.uid,
+        status: 'pending',
+        createdAt: serverTimestamp(),
       });
-
-      alert("✅ Appointment requested successfully!");
-      setSelectedTime('');
-      setReason('');
-    } catch (error) {
-      console.error("Error saving appointment:", error);
-      alert("❌ Failed to save appointment. Try again.");
+      setSuccessMsg('✅ Appointment request sent! Await admin approval.');
+      setFormData({ name: '', email: '', phone: '', date: '', time: '', service: '' });
+    } catch (err) {
+      alert('❌ Failed to book appointment: ' + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="appointment-form">
-      <AppointmentCalendar
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-      />
-
-      <div className="time-selection">
-        {Object.entries(timeSlots).map(([period, times]) => (
-          <div key={period}>
-            <h4>{period.charAt(0).toUpperCase() + period.slice(1)}:</h4>
-            {times.map((time) => (
-              <button
-                key={time}
-                type="button"
-                className={`time-btn ${selectedTime === time ? 'selected' : ''}`}
-                onClick={() => setSelectedTime(time)}
-              >
-                {time}
-              </button>
-            ))}
-          </div>
-        ))}
-      </div>
-
-      <textarea
-        placeholder="Enter your reason for appointment..."
-        value={reason}
-        onChange={(e) => setReason(e.target.value)}
-        required
-      />
-
-      <div className="form-buttons">
-        <button type="submit" className="submit-btn">Save</button>
-      </div>
-    </form>
+    <div className="appointment-form">
+      <h2>Book an Appointment</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name*
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+        </label>
+        <label>
+          Email*
+          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        </label>
+        <label>
+          Phone
+          <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
+        </label>
+        <label>
+          Date*
+          <input type="date" name="date" value={formData.date} onChange={handleChange} required />
+        </label>
+        <label>
+          Time*
+          <input type="time" name="time" value={formData.time} onChange={handleChange} required />
+        </label>
+        <label>
+          Service*
+          <select name="service" value={formData.service} onChange={handleChange} required>
+            <option value="">-- Select a service --</option>
+            <option value="Consultation">Consultation</option>
+            <option value="Follow-up">Follow-up</option>
+            <option value="Diagnosis">Diagnosis</option>
+          </select>
+        </label>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Booking...' : 'Book Now'}
+        </button>
+      </form>
+      {successMsg && <p style={{ color: 'green', marginTop: '1rem' }}>{successMsg}</p>}
+    </div>
   );
 };
 

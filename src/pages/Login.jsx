@@ -1,9 +1,10 @@
+// File: src/pages/Login.jsx
 import React, { useState } from 'react';
-import './Login.css';
+import '../Styles/login.css'; // ✅ Make sure this file and folder exist
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { db } from '../firebase';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,29 +14,16 @@ const Login = () => {
 
   const handleLogin = async (e, selectedRole) => {
     e.preventDefault();
-
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("🔐 Logged-in Firebase UID:", user.uid);
-
-
-      // 🧠 Fetch role from Firestore
+      const user = userCredential.user;
       const userDoc = await getDoc(doc(db, 'users', user.uid));
 
       if (userDoc.exists()) {
         const userData = userDoc.data();
         const firestoreRole = userData?.role?.toLowerCase().trim();
-
-        console.log('✅ Logged in UID:', user.uid);
-        console.log('✅ Firestore Role:', firestoreRole);
-        console.log('✅ Selected Role:', selectedRole.toLowerCase());
-
         if (firestoreRole === selectedRole.toLowerCase()) {
-          if (firestoreRole === 'admin') {
-            navigate('/AdminDashboard');
-          } else {
-            navigate('/Userdashboard');
-          }
+          navigate(firestoreRole === 'admin' ? '/AdminDashboard' : '/Userdashboard');
         } else {
           alert('🚫 Invalid credentials for selected role.');
         }
@@ -54,35 +42,30 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form>
-        <input
-          type="email"
-          placeholder="Email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <div style={{ display: 'flex', gap: '10px', marginTop: '1rem' }}>
-          <button type="button" onClick={(e) => handleLogin(e, 'user')}>
-            Login as User
-          </button>
-          <Link to="/AdminDashboard" ><button type="button" onClick={(e) => handleLogin(e, 'admin')}>
-            Login as Admin
-          </button></Link>
-          
-        </div>
-      </form>
+    <div className="login-page">
+      <div className="login-box">
+        <h2>Login</h2>
+        <form>
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <div className="role-buttons">
+            <button type="button" onClick={(e) => handleLogin(e, 'user')}>Login as User</button>
+            <button type="button" onClick={(e) => handleLogin(e, 'admin')}>Login as Admin</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

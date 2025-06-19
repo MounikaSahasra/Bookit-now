@@ -1,0 +1,133 @@
+/* File: src/styles/landing.css */
+
+.landing-wrapper {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1e293b;
+  background: linear-gradient(to bottom, #e0f2fe, #fff);
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 40px;
+  background: linear-gradient(to right, #3f51b5, #2196f3);
+  color: white;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* CTA Buttons */
+.cta-buttons button {
+  margin-right: 15px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cta {
+  background-color: #ffffff;
+  color: #3f51b5;
+}
+
+.cta:hover {
+  background-color: #e3f2fd;
+}
+
+.cta-secondary {
+  background-color: #1e3a8a;
+  color: white;
+}
+
+.cta-secondary:hover {
+  background-color: #0f172a;
+}
+
+/* Features Section */
+.features {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.feature-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.feature-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  max-width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #3f51b5;
+}
+
+/* About Section */
+.about-section {
+  padding: 60px 30px;
+  background-color: #f1f5f9;
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  background-color: #1e293b;
+  color: #e2e8f0;
+}

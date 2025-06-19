@@ -1,10 +1,14 @@
+/* File: src/App.css */
+
 .App {
   text-align: center;
   min-height: 100vh;
   background: linear-gradient(to right, #43cea2, #185a9d);
   padding: 60px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Button style for general actions */
 .action-btn {
   margin: 10px;
   padding: 12px 24px;
@@ -22,8 +26,18 @@
   background-color: #185a9d;
   color: white;
 }
+
+/* Custom tile style for unavailable dates in calendar */
 .react-calendar__tile.unavailable-tile {
   background-color: #ff4d4d !important;
   color: white !important;
-  /* border-radius: 50%; */
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+/* Optional general layout utility */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
 }
